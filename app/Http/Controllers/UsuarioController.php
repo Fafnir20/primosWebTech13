@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UsuarioController extends Controller
 {
@@ -28,22 +29,32 @@ class UsuarioController extends Controller
      */
     public function store(Request $request)
     {
+        // Validação
         $request->validate([
             'nome' => 'required|max:100',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'biografia' => 'nullable',
             'interesses' => 'nullable',
+            'email' => 'required|max:100|unique:usuario,email', // Adicionei uma validação para garantir e-mails únicos
+            'password' => 'required|max:50',
         ]);
 
+        // Preparar dados para salvar
         $data = $request->all();
 
+        // Hash da senha
+        $data['password'] = Hash::make($data['password']);
+
+        // Lógica para upload da foto
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('fotos', 'public');
         }
 
+        // Criar usuário
         Usuario::create($data);
 
-        return redirect()->route('login')->with('success', 'Usuário cadastrado com sucesso!');
+        // Redirecionar com mensagem de sucesso
+        return redirect()->route('usuarios.create')->with('success', 'Usuário cadastrado com sucesso!');
     }
 
     /**
