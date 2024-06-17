@@ -27,6 +27,7 @@ body{
     height: 440px;
     width: 200%;
     transition: height 0.2s ease;
+    height: auto;
     
 }
 .container .form{

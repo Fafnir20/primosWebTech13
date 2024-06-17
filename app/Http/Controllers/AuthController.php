@@ -6,6 +6,7 @@ use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class AuthController extends Controller
 {
@@ -18,14 +19,18 @@ class AuthController extends Controller
     {
         $credentials = $request->validate([
             'email' => ['required', 'email'],
-            'password' => ['required'], // Ajuste aqui
+            'password' => ['required'],
         ]);
-
+    
+        Log::debug('Tentando login com:', ['email' => $credentials['email'], 'password' => $credentials['password']]);
+    
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('index'); // Redireciona para a página desejada
+            return redirect()->intended('index');
         }
-
+    
+        Log::debug('Falha na autenticação para o email:', ['email' => $credentials['email']]);
+    
         return back()->withErrors([
             'email' => 'As credenciais fornecidas não correspondem aos nossos registros.',
         ]);
