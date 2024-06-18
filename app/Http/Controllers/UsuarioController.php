@@ -25,6 +25,13 @@ class UsuarioController extends Controller
         return view('login');
     }
 
+    public function buscarUsuarios(){
+
+        $usuarios = Usuario::all();
+
+        return view('index', compact('usuarios'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
@@ -36,7 +43,7 @@ class UsuarioController extends Controller
             'foto' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'biografia' => 'nullable',
             'interesses' => 'nullable',
-            'email' => 'required|max:100|unique:usuario,email', // Adicionei uma validação para garantir e-mails únicos
+            'email' => 'required|max:100|unique:usuario,email', 
             'password' => 'required|max:50',
         ]);
 
@@ -88,9 +95,15 @@ class UsuarioController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show($id)
     {
-        //
+        $usuario = Usuario::findOrFail($id);
+
+        // Passar os dados para a view
+
+       // return view('usuario.show', compact('usuario'));
+
+        return view('index', compact('usuario'));
     }
 
     /**

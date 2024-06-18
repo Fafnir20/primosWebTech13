@@ -53,21 +53,21 @@
         <div class="contact">
 
             <img src="{{url('assets/img/contact_1.jpg')}}">
-            <p>Jose Tchingunji Inacio</p>
+            <p>Goel Nkoko</p>
 
         </div>
 
         <div class="contact">
 
             <img src="{{url('assets/img/contact_2.jpg')}}">
-            <p>Jose Tchingunji Inacio</p>
+            <p>Samuel Almeida</p>
 
         </div>
 
         <div class="contact">
 
             <img src="{{url('assets/img/contact_3.jpg')}}">
-            <p>Jose Tchingunji Inacio</p>
+            <p>Florencio Mateus</p>
 
         </div>
 

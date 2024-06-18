@@ -16,7 +16,14 @@ Route::get('/index', function () {
 
 
 Route::get('/usuarios/create', [UsuarioController::class, 'create'])->name('usuarios.create');
+
 Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.store');
-Route::get('/login', [UsuarioController::class, 'showLoginForm'])->name('login.form');
+
+//Route::get('/login', [UsuarioController::class, 'showLoginForm'])->name('login.form');
+
 Route::post('/login', [UsuarioController::class, 'login'])->name('login');
 Route::post('/logout', [UsuarioController::class, 'logout'])->name('logout');
+
+Route::get('/index', [UsuarioController::class, 'buscarUsuarios'])->name('buscarUsuarios');
+
+Route::get('/index/{id}', [UsuarioController::class, 'show'])->name('show');
