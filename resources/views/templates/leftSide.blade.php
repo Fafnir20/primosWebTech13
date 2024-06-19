@@ -1,4 +1,4 @@
-<link rel="stylesheet" href={{ url('assets/css/leftSide.css') }}>
+<link rel="stylesheet" href="{{ url('assets/css/leftSide.css') }}">
 
 <div class="left">
 
