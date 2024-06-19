@@ -27,9 +27,18 @@ class UsuarioController extends Controller
 
     public function buscarUsuarios(){
 
-        $usuarios = Usuario::all();
+        $usuarioLogado = Auth::user();
 
-        return view('index', compact('usuarios'));
+    // Obter amizades do usuário logado
+    $amizades = $usuarioLogado->amizades;
+
+    // Obter IDs dos amigos
+    $amigosIds = $amizades->pluck('usuario2_id')->toArray();
+
+    // Obter informações dos amigos
+    $amigos = Usuario::whereIn('id', $amigosIds)->get();
+
+    return view('index', compact('usuarioLogado', 'amigos'));
     }
 
     /**
@@ -97,13 +106,8 @@ class UsuarioController extends Controller
      */
     public function show($id)
     {
-        $usuario = Usuario::findOrFail($id);
-
-        // Passar os dados para a view
-
-       // return view('usuario.show', compact('usuario'));
-
-        return view('index', compact('usuario'));
+        //
+   
     }
 
     /**
