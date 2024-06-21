@@ -3,8 +3,9 @@
 <div class="left">
 
     <div class="img">
-        <img src="{{url('assets/img/profile.png')}}">
-        <a href="{{ route('profile') }}">John Deo</a>
+        <img src="{{ asset('storage/' . $usuarioLogado->foto) }}">
+        
+        <a href="{{ route('profile') }}">{{ $usuarioLogado->nome }}</a>
     </div>
 
     <div class="img">

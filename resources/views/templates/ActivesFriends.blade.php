@@ -57,19 +57,6 @@
 
         </div>
 
-        <div class="contact">
-
-            <img src="{{url('assets/img/contact_2.jpg')}}">
-            <p>Samuel Almeida</p>
-
-        </div>
-
-        <div class="contact">
-
-            <img src="{{url('assets/img/contact_3.jpg')}}">
-            <p>Florencio Mateus</p>
-
-        </div>
 
     </div>
 

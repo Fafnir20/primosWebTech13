@@ -30,7 +30,7 @@
             @endif
 
             <span class="title">Login</span>
-            <form action="{{ route('login') }}" method="POST"> 
+            <form action="{{ route('login') }}" method="POST">
                 @csrf
                 <div class="input-field">
                     <input type="text" placeholder="Enter your email" id="email" name="email" required>

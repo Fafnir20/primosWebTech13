@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', 'App\Http\Controllers\UsuarioController@index');
+Route::get('/', 'App\Http\Controllers\UsuarioController@create');
 
 Route::get('/profile', function () {
     return view('profile');
@@ -22,8 +22,12 @@ Route::post('/usuarios', [UsuarioController::class, 'store'])->name('usuarios.st
 //Route::get('/login', [UsuarioController::class, 'showLoginForm'])->name('login.form');
 
 Route::post('/login', [UsuarioController::class, 'login'])->name('login');
+
 Route::post('/logout', [UsuarioController::class, 'logout'])->name('logout');
 
 Route::get('/index', [UsuarioController::class, 'buscarUsuarios'])->name('buscarUsuarios');
+
+Route::get('/index', [UsuarioController::class, 'index'])->name('indexUser');
+
 
 Route::get('/index/{id}', [UsuarioController::class, 'show'])->name('show');

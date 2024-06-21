@@ -36,7 +36,7 @@
             <i class="fa-brands fa-facebook-messenger"></i>
             <i class="fa-solid fa-bell"></i>
             <i class="fa-solid fa-moon"></i>
-            <img src="{{url('assets/img/profile.png')}}">
+            <img src="{{ asset('storage/' . $usuarioLogado->foto) }}">
         </div>
     </nav>
        
