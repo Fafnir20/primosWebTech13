@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -11,7 +13,29 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+
+    }
+
+    public function buscaPosts()
+    {
+        $usuarioLogado = Auth::user();
+
+        if (!$usuarioLogado) {
+            return redirect()->route('login')->with('error', 'Por favor, faça login para continuar.');
+        }
+
+        // Obter IDs dos amigos
+        $amigosIds = $usuarioLogado->amizades->pluck('usuario2_id')->toArray();
+
+        // Obter posts do usuário logado e dos amigos
+        $posts = Post::whereIn('usuario_id', array_merge([$usuarioLogado->id], $amigosIds))
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('index', [
+            'usuarioLogado' => $usuarioLogado,
+            'posts' => $posts,
+        ]);
     }
 
     /**
@@ -27,7 +51,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'texto' => 'nullable|string',
+            'imagem' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $data = $request->only(['texto']);
+        $data['usuario_id'] = Auth::id();
+
+        if ($request->hasFile('imagem')) {
+            $data['imagem'] = $request->file('imagem')->store('imagens', 'public');
+        }
+
+        Post::create($data);
+
+        return redirect()->route('indexUser')->with('success', 'Post criado com sucesso!');
     }
 
     /**

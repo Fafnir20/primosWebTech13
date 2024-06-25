@@ -9,6 +9,8 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+
+     /*
     public function up()
     {
         Schema::create('amizades', function (Blueprint $table) {
@@ -22,7 +24,7 @@ return new class extends Migration
             $table->foreign('usuario2_id')->references('id')->on('usuarios')->onDelete('cascade');
         });
     }
-
+*/
 
     /**
      * Reverse the migrations.

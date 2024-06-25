@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\UsuarioController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,4 +31,6 @@ Route::get('/index', [UsuarioController::class, 'buscarUsuarios'])->name('buscar
 Route::get('/index', [UsuarioController::class, 'index'])->name('indexUser');
 
 
-Route::get('/index/{id}', [UsuarioController::class, 'show'])->name('show');
+Route::get('/profile', [UsuarioController::class, 'OpenProfile'])->name('OpenProfile');
+
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');

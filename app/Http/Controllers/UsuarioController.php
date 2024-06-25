@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Usuario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,28 +17,35 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarioLogado = Auth::user();
-
+    
         if (!$usuarioLogado) {
             return redirect()->route('login')->with('error', 'Por favor, faça login para continuar.');
         }
-
+    
         // Obter amizades do usuário logado
         $amizades = $usuarioLogado->amizades;
         $amigosIds = $amizades->pluck('usuario2_id')->toArray();
-
+    
         // Obter amigos
-        $amigos = Usuario::whereIn('id', $amigosIds)->get();
-
+        $amigos = Usuario::whereIn('id', $amigosIds)->get() ?? collect();
+    
         // Obter amigos online
-        $amigosOnline = $amigos->where('status', 'online');
-
+        $amigosOnline = $amigos->where('status', 'online') ?? collect();
+    
+        // Obter posts do usuário logado e dos amigos
+        $posts = Post::whereIn('usuario_id', array_merge([$usuarioLogado->id], $amigosIds))
+            ->orderBy('created_at', 'desc')
+            ->get() ?? collect();
+    
         // Passar dados para a view
         return view('index', [
             'usuarioLogado' => $usuarioLogado,
             'amigos' => $amigos,
-            'amigosOnline' => $amigosOnline
+            'amigosOnline' => $amigosOnline,
+            'posts' => $posts
         ]);
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -122,7 +130,6 @@ class UsuarioController extends Controller
     }
 
 
-
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -164,6 +171,31 @@ class UsuarioController extends Controller
         return redirect('/');
     }
 
+    public function OpenProfile(){
+
+        $usuarioLogado = Auth::user();
+
+        if (!$usuarioLogado) {
+            return redirect()->route('login')->with('error', 'Por favor, faça login para continuar.');
+        }
+
+        // Obter amizades do usuário logado
+        $amizades = $usuarioLogado->amizades;
+        $amigosIds = $amizades->pluck('usuario2_id')->toArray();
+
+        // Obter amigos
+        $amigos = Usuario::whereIn('id', $amigosIds)->get();
+
+        // Obter amigos online
+        $amigosOnline = $amigos->where('status', 'online');
+
+        // Passar dados para a view
+        return view('profile', [
+            'usuarioLogado' => $usuarioLogado,
+            'amigos' => $amigos,
+            'amigosOnline' => $amigosOnline
+        ]);
+    }
 
     /**
      * Display the specified resource.

@@ -5,7 +5,8 @@
         <div class="wrapper">
             <section class="post">
                 <header>Criar Post</header>
-                <form action="#">
+                <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
                     <div class="conteudo">
                         <img src="{{ asset('storage/' . $usuarioLogado->foto) }}" alt="logo" style="border-radius: 50%">
                         <div class="details">
@@ -17,13 +18,13 @@
                             </div>
                         </div>
                     </div>
-                    <textarea placeholder="What's on your mind?" spellcheck="false" required></textarea>
+                    <textarea placeholder="What's on your mind?" name="texto" spellcheck="false" required></textarea>
                     <div class="theme-emoji"></div>
                     <div class="options">
-                        <input type="file" name="foto" id="foto">
+                        <input type="file" name="imagem" id="foto">
                        
                     </div>
-                    <button type="submit">Post</button>
+                    <button type="submit">Postar</button>
                 </form>
             </section>
         </div>

@@ -10,3 +10,12 @@ document.getElementById('search').addEventListener('click', function(event) {
         document.getElementById('popup').style.display="block";
     }
 });
+
+function toggleComments(postId) {
+    var commentsSection = document.getElementById('comments-' + postId);
+    if (commentsSection.style.display === 'none') {
+        commentsSection.style.display = 'block';
+    } else {
+        commentsSection.style.display = 'none';
+    }
+}

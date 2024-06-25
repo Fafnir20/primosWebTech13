@@ -5,7 +5,7 @@
     <div class="img">
         <img src="{{ asset('storage/' . $usuarioLogado->foto) }}">
         
-        <a href="{{ route('profile') }}">{{ $usuarioLogado->nome }}</a>
+        <a href="{{ route('OpenProfile') }}">{{ $usuarioLogado->nome }}</a>
     </div>
 
     <div class="img">
