@@ -125,7 +125,7 @@
                 <img src="{{ asset('storage/' . $post->imagem) }}" alt="Post image" width="100%">
                 @endif
                 <div class="post_content">
-                    <p>{{ $post->texto }}</p>
+                    <p class="description-post">{{ $post->texto }}</p>
                 </div>
                 <div class="info">
                     <div class="emoji_img">
@@ -156,18 +156,18 @@
                 </div>
                 <hr>
                 <div id="comments-{{ $post->id }}" class="comment_section" style="display: none;">
-                    <!-- Aqui você pode adicionar o formulário para adicionar um novo comentário -->
+                    <!-- Formulário para adicionar um novo comentário -->
                     <div class="comment_warpper">
                         <img src="{{ asset('storage/' . $usuarioLogado->foto) }}" alt="{{ $usuarioLogado->nome }}" width="50" style="border-radius: 50%;">
                         <div class="circle"></div>
-                        <div class="comment_search">
-                            <input type="text" placeholder="Write a comment">
-                            <i class="fa-regular fa-face-smile"></i>
-                            <i class="fa-solid fa-camera"></i>
-                            <i class="fa-regular fa-note-sticky"></i>
-                        </div>
+                        <form action="{{ route('comments.store') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="posts_id" value="{{ $post->id }}">
+                            <input type="text" name="texto" placeholder="Write a comment" required>
+                            <button type="submit">Comment</button>
+                        </form>
                     </div>
-                    <!-- Aqui você pode adicionar os comentários existentes -->
+                    <!-- Exibição dos comentários existentes -->
                     @if($post->comments)
                         @foreach ($post->comments as $comment)
                         <div class="comment_warpper">
@@ -179,6 +179,7 @@
                         @endforeach
                     @endif
                 </div>
+                
             </div>
             @endforeach
         @endif
