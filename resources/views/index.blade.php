@@ -51,7 +51,7 @@
                         @endif
                         <div class="friends_name">
                             <p class="friends_name">{{ $amigo->nome }}</p>
-                            <p class="time">16h.<i class="fa-solid fa-user-group"></i></p>
+                            <p class="time">{{ $amigo->created_at->diffForHumans() }}<i class="fa-solid fa-user-group"></i></p>
                         </div>
                     </div>
                     <div class="menu">
@@ -96,9 +96,7 @@
                     <div class="circle"></div>
                     <div class="comment_search">
                         <input type="text" placeholder="Write a comment">
-                        <i class="fa-regular fa-face-smile"></i>
-                        <i class="fa-solid fa-camera"></i>
-                        <i class="fa-regular fa-note-sticky"></i>
+                        <input type="submit" value="comment" id="btnComment">
                     </div>
                 </div>
             </div>
@@ -132,7 +130,7 @@
                         <img src="{{ url('assets/img/like.png') }}">
                         <img src="{{ url('assets/img/haha.png') }}">
                         <img src="{{ url('assets/img/heart.png') }}">
-                        <p>You, Charith Disanayaka and 25K others</p>
+                        <p>You, Disanayaka and 25K others</p>
                     </div>
                     <div class="comment">
                         <p>421 Comments</p>
@@ -160,11 +158,13 @@
                     <div class="comment_warpper">
                         <img src="{{ asset('storage/' . $usuarioLogado->foto) }}" alt="{{ $usuarioLogado->nome }}" width="50" style="border-radius: 50%;">
                         <div class="circle"></div>
-                        <form action="{{ route('comments.store') }}" method="POST">
+                        <form action="{{ route('comments.store') }}" method="POST" id="formAdicionarComment">
                             @csrf
-                            <input type="hidden" name="posts_id" value="{{ $post->id }}">
-                            <input type="text" name="texto" placeholder="Write a comment" required>
-                            <button type="submit">Comment</button>
+                            <div class="comment_search">
+                                <input type="hidden" name="posts_id" value="{{ $post->id }}">
+                                <input type="text" name="texto" id="inputComment" placeholder="Write a comment" required>
+                                <input type="submit" value="Comment" id="btnComment">
+                            </div>
                         </form>
                     </div>
                     <!-- Exibição dos comentários existentes -->

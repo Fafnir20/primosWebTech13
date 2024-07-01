@@ -370,6 +370,14 @@
     outline: none;
 }
 
+.comment_search{
+display: flex;
+}
+
+#formAdicionarComment{
+    width: 100%;
+
+}
 .main .center .friends_post .comment_warpper .comment_search i{
     padding: 0 5px;
     color: #919191;
@@ -398,3 +406,17 @@
     padding: 10px;
     
 }
+
+#btnComment{
+    height: 30px;
+    width: 15%;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    color: #ffffff;
+    cursor: pointer;
+    border-radius: 7px;
+    background: #213f66;
+    transition: all 0.3s ease;
+  }

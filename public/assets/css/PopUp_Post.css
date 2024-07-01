@@ -149,11 +149,14 @@
     font-weight: 500;
     cursor: pointer;
     color: #BCC0C4;
-    cursor: no-drop;
+    cursor: pointer;
     border-radius: 7px;
     background: #e2e5e9;
     transition: all 0.3s ease;
   }
+
+
+
   form textarea:valid ~ button{
     color: #fff;
     cursor: pointer;

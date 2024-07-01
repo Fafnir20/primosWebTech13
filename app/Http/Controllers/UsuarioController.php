@@ -17,34 +17,35 @@ class UsuarioController extends Controller
     public function index()
     {
         $usuarioLogado = Auth::user();
-    
+
         if (!$usuarioLogado) {
             return redirect()->route('login')->with('error', 'Por favor, faça login para continuar.');
         }
-    
+
         // Obter amizades do usuário logado
         $amizades = $usuarioLogado->amizades;
         $amigosIds = $amizades->pluck('usuario2_id')->toArray();
-    
+
         // Obter amigos
-        $amigos = Usuario::whereIn('id', $amigosIds)->get() ?? collect();
-    
+        $amigos = Usuario::whereIn('id', $amigosIds)->get();
+
         // Obter amigos online
-        $amigosOnline = $amigos->where('status', 'online') ?? collect();
-    
-        // Obter posts do usuário logado e dos amigos
-        $posts = Post::whereIn('usuario_id', array_merge([$usuarioLogado->id], $amigosIds))
+        $amigosOnline = $amigos->where('status', 'online');
+
+        // Obter posts com comentários
+        $posts = Post::with('comments.usuario')->whereIn('usuario_id', array_merge([$usuarioLogado->id], $amigosIds))
             ->orderBy('created_at', 'desc')
-            ->get() ?? collect();
-    
+            ->get();
+
         // Passar dados para a view
         return view('index', [
             'usuarioLogado' => $usuarioLogado,
             'amigos' => $amigos,
             'amigosOnline' => $amigosOnline,
-            'posts' => $posts
+            'posts' => $posts,
         ]);
     }
+    
     
 
     /**
