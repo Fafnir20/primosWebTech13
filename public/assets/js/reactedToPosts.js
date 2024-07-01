@@ -1,5 +1,4 @@
-
-    function reactToPost(postId, reactionType) {
+function reactToPost(postId, reactionType) {
         fetch(`/post/${postId}/react`, {
             method: 'POST',
             headers: {

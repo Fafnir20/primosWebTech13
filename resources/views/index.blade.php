@@ -147,19 +147,19 @@
                 <hr>
                 <div class="like">
                     <div class="like_icon">
-                        <i class="fa-solid fa-thumbs-up activi" onclick="reactToPost({{ $post->id }}, 'like')"></i>
+                        <i class="fa-solid fa-thumbs-up activi" id="iconTouch" onclick="reactToPost({{ $post->id }}, 'like')"></i>
                         <p>Like</p>
                     </div>
                     <div class="like_icon">
-                        <i class="fa-solid fa-face-grin-squint-tears" onclick="reactToPost({{ $post->id }}, 'haha')"></i>
+                        <i class="fa-solid fa-face-grin-squint-tears activi" id="iconTouch" onclick="reactToPost({{ $post->id }}, 'haha')"></i>
                         <p>Haha</p>
                     </div>
                     <div class="like_icon">
-                        <i class="fa-solid fa-heart" onclick="reactToPost({{ $post->id }}, 'heart')"></i>
+                        <i class="fa-solid fa-heart activi" id="iconTouch" onclick="reactToPost({{ $post->id }}, 'heart')"></i>
                         <p onclick="reactToPost({{ $post->id }}, 'heart')">Heart</p>
                     </div>
                     <div class="like_icon">
-                        <i class="fa-solid fa-message" onclick="toggleComments({{ $post->id }})"></i>
+                        <i class="fa-solid fa-message activi" id="iconTouch" onclick="toggleComments({{ $post->id }})"></i>
                         <p>Comments</p>
                     </div>
                     <div class="like_icon">

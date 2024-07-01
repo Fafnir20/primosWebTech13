@@ -420,3 +420,7 @@ display: flex;
     background: #213f66;
     transition: all 0.3s ease;
   }
+
+  #iconTouch{
+    cursor: pointer;
+  }
