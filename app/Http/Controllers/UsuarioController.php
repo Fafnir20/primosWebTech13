@@ -33,9 +33,11 @@ class UsuarioController extends Controller
         $amigosOnline = $amigos->where('status', 'online');
 
         // Obter posts com comentários
-        $posts = Post::with('comments.usuario')->whereIn('usuario_id', array_merge([$usuarioLogado->id], $amigosIds))
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $posts = Post::with(['comments.usuario', 'reactions'])
+        ->whereIn('usuario_id', array_merge([$usuarioLogado->id], $amigosIds))
+        ->withCount('comments') // Adiciona a contagem de comentários
+        ->orderBy('created_at', 'desc')    
+        ->get();
 
         // Passar dados para a view
         return view('index', [

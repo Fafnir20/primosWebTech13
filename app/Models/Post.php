@@ -27,4 +27,9 @@ class Post extends Model
     {
         return $this->belongsTo(Usuario::class);
     }
+
+    public function reactions()
+    {
+        return $this->hasMany(Reaction::class);
+    }
 }

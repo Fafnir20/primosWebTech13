@@ -130,18 +130,33 @@
                         <img src="{{ url('assets/img/like.png') }}">
                         <img src="{{ url('assets/img/haha.png') }}">
                         <img src="{{ url('assets/img/heart.png') }}">
-                        <p>You, Disanayaka and 25K others</p>
+                        <p>
+                            @php
+                                $likeCount = $post->reactions->where('type', 'like')->count();
+                                $hahaCount = $post->reactions->where('type', 'haha')->count();
+                                $heartCount = $post->reactions->where('type', 'heart')->count();
+                            @endphp
+                            {{ $likeCount }} Likes, {{ $hahaCount }} Haha, {{ $heartCount }} Hearts
+                        </p>
                     </div>
                     <div class="comment">
-                        <p>421 Comments</p>
+                        <p>{{ $post->comments_count }} Comments</p> <!-- Exibe o número de comentários -->
                         <p>1.3K Shares</p>
                     </div>
                 </div>
                 <hr>
                 <div class="like">
                     <div class="like_icon">
-                        <i class="fa-solid fa-thumbs-up activi"></i>
+                        <i class="fa-solid fa-thumbs-up activi" onclick="reactToPost({{ $post->id }}, 'like')"></i>
                         <p>Like</p>
+                    </div>
+                    <div class="like_icon">
+                        <i class="fa-solid fa-face-grin-squint-tears" onclick="reactToPost({{ $post->id }}, 'haha')"></i>
+                        <p>Haha</p>
+                    </div>
+                    <div class="like_icon">
+                        <i class="fa-solid fa-heart" onclick="reactToPost({{ $post->id }}, 'heart')"></i>
+                        <p onclick="reactToPost({{ $post->id }}, 'heart')">Heart</p>
                     </div>
                     <div class="like_icon">
                         <i class="fa-solid fa-message" onclick="toggleComments({{ $post->id }})"></i>
@@ -235,6 +250,7 @@
 
 @section('javaScript')
 <script src="{{ url('assets/js/popUpPost.js') }}"></script>
+<script src="{{ url('assets/js/reactedToPosts.js') }}"></script>
 <script>
     function openPopUp() {
         document.getElementById('popup').style.display = 'block';
@@ -253,4 +269,27 @@
         }
     }
 </script>
+<script>
+    function reactToPost(postId, reactionType) {
+        fetch(`/post/${postId}/react`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({ type: reactionType })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Atualizar a contagem de reações ou fazer outra ação desejada
+                location.reload(); // Por simplicidade, recarregar a página
+            } else {
+                alert(data.error || 'Erro ao adicionar reação.');
+            }
+        })
+        .catch(error => console.error('Erro:', error));
+    }
+</script>
+
 @endsection
