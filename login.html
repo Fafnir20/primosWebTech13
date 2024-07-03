@@ -107,6 +107,27 @@
             </div><!-- second column -->
         </div><!-- second-content -->
     </div>
-    <script src="JAVA/login.js"></script>
+<!-- No final do seu arquivo HTML, antes do fechamento da tag </body> -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const formSignIn = document.querySelector('.content.first-content form');
+        formSignIn.addEventListener('submit', function (event) {
+            event.preventDefault(); // Evita o envio padrão do formulário
+
+            // Validação simples de campos vazios
+            const email = formSignIn.querySelector('input[type="email"]').value;
+            const password = formSignIn.querySelector('input[type="password"]').value;
+
+            if (email.trim() === '' || password.trim() === '') {
+                alert('Por favor, preencha todos os campos.');
+                return;
+            }
+
+            // Aqui você pode adicionar mais lógica de validação ou enviar os dados para um servidor
+            alert('Login realizado com sucesso para o email: ' + email);
+        });
+    });
+</script>
+
 </body>
 </html>
