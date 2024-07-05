@@ -23,6 +23,11 @@ class Usuario extends Authenticatable
             ->orWhere('usuario2_id', $this->id)
             ->where('status', 'aceito');
     }
+    
+    public function posts()
+    {
+        return $this->hasMany(Post::class, 'usuario_id');
+    }
 
     public function amigos()
     {
@@ -30,4 +35,5 @@ class Usuario extends Authenticatable
             ->wherePivot('status', 'aceito')
             ->withPivot('status', 'data_criacao');
     }
+
 }

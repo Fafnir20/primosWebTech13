@@ -1,0 +1,106 @@
+.containerMessageFriends {
+    border: 1px solid rgb(0, 69, 125);
+    height: auto;
+    background-color: #f0f2f5;
+}
+
+.message-button {
+    padding: 10px 20px;
+    background-color: #1877f2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.message-button:hover {
+    background-color: #1153b4;
+}
+
+#message-layout {
+    width: 24%;
+    height: auto;
+    margin-top: 2%;
+    background-color: rgba(0, 0, 0, 0.046);
+}
+
+#message-friends {
+    width: 20%;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.046);
+}
+
+.containerMessage {
+    min-height: 50vh;
+    width: 100%;
+    max-width: 1000px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    height: auto;
+}
+
+.headerMessage {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    background-color: #f0f2f5;
+}
+
+.headerMessage:hover {
+    background-color: #bbbbbb;
+    cursor: pointer;
+   
+}
+
+.headerMessage img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.headerMessage h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.message-area {
+    background-color: #f0f2f5;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 100px;
+    height: auto;
+}
+
+.message-input {
+    display: flex;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.message-input textarea {
+    flex: 1;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    resize: none;
+}
+
+.send-button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #1877f2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.send-button:hover {
+    background-color: #1153b4;
+}

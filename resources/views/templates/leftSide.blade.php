@@ -13,10 +13,6 @@
         <p>Friends</p>
     </div>
 
-    <div class="img">
-        <img src="{{url('assets/img/group.png')}}">
-        <p>Grupos</p>
-    </div>
 
     <hr>
 
@@ -30,14 +26,15 @@
 
     <div class="shortcuts">
         <img src="{{url('assets/img/shortcuts_5.webp')}}">
-        <p>Comunidades</p>
+        <p>Eventos</p>
     </div>
 
     <div class="shortcuts">
-        <img src="{{url('assets/img/down_arrow.png')}}">
-        <p>See more</p>
+        <img src="{{url('assets/img/settings.png')}}">
+        <p>Definições</p>
     </div>
-
+    @include('templates.sideRequestFriends', ['pedidosPendentes' => $pedidosPendentes])
 </div>
+
 
 @yield('leftSide')

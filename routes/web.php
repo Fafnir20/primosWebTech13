@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\UsuarioController;
+use App\Http\Controllers\FriendsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\UsuarioController@create');
@@ -41,6 +43,7 @@ Route::post('/post/{post}/react', [ReactionController::class, 'reactToPost'])->n
 
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
 
+Route::post('/amizade/adicionar', [UsuarioController::class, 'adicionar'])->name('amizade.adicionar');
+Route::post('/amizade/aceitar', [UsuarioController::class, 'aceitar'])->name('amizade.aceitar');
 
-
-
+Route::get('profile/{id}', [UsuarioController::class, 'show'])->name('perfil.amigo');

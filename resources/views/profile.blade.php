@@ -3,95 +3,103 @@
 @section('title', 'Profile')
 
 @section('estilos')
-<link rel="stylesheet" href="{{url('assets/css/profile.css')}}">    
+<link rel="stylesheet" href="{{ url('assets/css/profile.css') }}">  
 @endsection
 
+@section('conteudo')
 <div class="profile-container">
-    <img src="img/cover.png" class="cover-img">
-    <div class="profile-details">
-      <div class="pd-left">
-        <div class="pd-row">
-          <img src="img/profile.png" class="pd-image">
+    <img src="{{ asset('storage/' . $amigo->foto) }}" alt="{{ $amigo->nome }}" class="cover-img">
+
+    <div class="pd-left">
+      <div class="pd-row">
+          <img src="{{ asset('storage/' . $amigo->foto) }}" alt="{{ $amigo->nome }}" class="pd-image">
           <div>
-            <h3>Jack Nicholson</h3>
-            <p>120 friends - 20 mutual</p>
-            <img src="img/member-1.png">
-            <img src="img/member-2.png">
-            <img src="img/member-3.png">
-            <img src="img/member-4.png">
+              <h3>{{ $amigo->nome }}</h3>
+              <p>{{ count($amigo->amizades) }} amigos - {{ count($amigosEmComum) }} em comum</p>
+              @foreach($amigosEmComum as $amigoComum)
+                  <img src="{{ asset('storage/' . $amigoComum->foto) }}">
+              @endforeach
           </div>
-        </div>
       </div>
-      <div class="pd-right">
-
-        <button type="button"><img src="img/add-friends.png">Friend</button>
-        <button type="button"><img src="img/message.png">Message</button><br>
-        <a href=""><img src="img/more.png"></a>
-      </div>
-    </div>
-
-    <div class="profile-info">
-      <div class="info-col">
-
-        <div class="profile-intro">
-          <h3>Intro</h3>
-          <p class="intro-text">Believe in yourself and you can do unbelievable things.
-          <img src="img/feeling.png"></p>
-          <hr>
-          <ul>
-            <li><img src="img/profile-job.png">Director at 99media Ltd</li>
-            <li><img src="img/profile-study.png">Studied at amity</li>
-            <li><img src="img/profile-study.png">Went to DPS</li>
-            <li><img src="img/profile-home.png">Lives in...</li>
-            <li><img src="img/profile-location.png">From Bangalore, India</li>
-          </ul>
-        </div>
-
-
-        <div class="profile-intro">
-          <div class="title-box">
-            <h3>Photos</h3>
-            <a href="">All Photos</a>
-          </div>
-
-          <div class="photo-box">
-            <div><img src="img/photo1.png"></div>
-            <div><img src="img/photo2.png"></div>
-            <div><img src="img/photo3.png"></div>
-            <div><img src="img/photo4.png"></div>
-            <div><img src="img/photo5.png"></div>
-            <div><img src="img/photo6.png"></div>
-          </div>
-        </div>
-
-        <div class="profile-intro">
-          <div class="title-box">
-            <h3>Friends</h3>
-            <a href="">All Friends</a>
-          </div>
-          <p>120 (10 mutual)</p>
-          <div class="friends-box">
-            <div><img src="img/member-1.png"><p>Joseph N</p></div>
-            <div><img src="img/member-2.png"><p>Nathan X</p></div>
-            <div><img src="img/member-3.png"><p>George K</p></div>
-            <div><img src="img/member-4.png"><p>Francis J</p></div>
-            <div><img src="img/member-5.png"><p>Anthony E</p></div>
-            <div><img src="img/member-6.png"><p>Michael</p></div>
-            <div><img src="img/member-7.png"><p>Edward M</p></div>
-            <div><img src="img/member-8.png"><p>Bradon C</p></div>
-            <div><img src="img/member-9.png"><p>James Doe</p></div>
-          </div>
-        </div>
-
-      </div>
-      <div class="post-col">
-        <div class="write-post-container">
-        </div>
-      </div>
-    </div>
-
-
-
   </div>
 
-  <script src="js/app.js"></script>
+  <div class="pd-right">
+    @if($saoAmigos)
+        <button type="button"><img src="{{ asset('img/add-friends.png') }}">Amigo</button>
+    @else
+        <button type="button"><img src="{{ asset('img/add-friends.png') }}">Adicionar Amigo</button>
+    @endif
+    <button type="button"><img src="{{ asset('img/message.png') }}">Message</button><br>
+    <a href=""><img src="{{ asset('img/more.png') }}"></a>
+</div>
+</div>
+
+<div class="main">
+<div class="sideAbout">
+    <div class="profile-details">
+    <div class="profile-info">
+        <div class="info-col">
+            <div class="profile-intro">
+                <h3>Intro</h3>
+                <p class="intro-text">{{ $amigo->biografia }}<img src="{{ asset('img/feeling.png') }}"></p>
+                <hr>
+                <ul>
+                    <li><img src="{{ asset('img/profile-job.png') }}"> {{ $amigo->trabalho }}</li>
+                    <li><img src="{{ asset('img/profile-study.png') }}"> {{ $amigo->estudo }}</li>
+                    <li><img src="{{ asset('img/profile-study.png') }}"> {{ $amigo->escola }}</li>
+                    <li><img src="{{ asset('img/profile-home.png') }}"> {{ $amigo->residencia }}</li>
+                    <li><img src="{{ asset('img/profile-location.png') }}"> {{ $amigo->localizacao }}</li>
+                </ul>
+            </div>
+
+            <div class="profile-intro">
+                <div class="title-box">
+                    <h3>Friends</h3>
+                    <a href="">All Friends</a>
+                </div>
+                <p>{{ count($amigo->amizades) }} ({{ count($amigosEmComum) }} mutual)</p>
+                <div class="friends-box">
+                    @foreach($amigo->amizades as $amigoAmizade)
+                        <div>
+                            <img src="{{ asset('storage/' . $amigoAmizade->foto) }}">
+                            <p>{{ $amigoAmizade->nome }}</p>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="sidePosts">
+        <div class="post-col">
+            @foreach($posts as $post)
+                <div class="post">
+                    <div class="post-header">
+                        <div>
+                            <h3>{{ $post->usuario->nome }}</h3>
+                            <span>{{ $post->created_at->diffForHumans() }}</span>
+                        </div>
+                    </div>
+                    <div class="post-body">
+                        <h3>{{ $post->titulo }}</h3>
+                        <p>{{ $post->conteudo }}</p>
+                        @if($post->imagem)
+                            <img src="{{ asset('storage/' . $post->imagem) }}" class="post-image">
+                        @endif
+                    </div>
+                    <div class="post-footer">
+                        <span>{{ $post->comments_count }} comentários</span>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+</div>
+</div>
+
+</div>
+@endsection
+
+@section('javascript')
+<script src="{{ url('js/app.js') }}"></script>
+@endsection

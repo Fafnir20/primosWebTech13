@@ -7,9 +7,41 @@
 <link rel="stylesheet" href="{{ url('assets/css/index.css') }}">
 <link rel="stylesheet" href="{{ url('assets/css/PopUp_Post.css') }}">
 <link rel="stylesheet" href="{{ url('assets/css/rightSide.css') }}">
+<link rel="stylesheet" href="{{ url('assets/css/message.css') }}">
+<meta name="user-id" content="{{ auth()->user()->id }}">
 @endsection
 
 @section('conteudo')
+
+<div id="message-friends" style="display: none; z-index:1000; position: fixed; right:20px">
+    <div class="containerMessageFriends">
+        @foreach($amigos as $amigo)
+        <div class="headerMessage" onclick="showMessageLayout({{ $amigo->id }}, '{{ $amigo->nome }}', '{{ asset('storage/' . $amigo->foto) }}')">
+            <img src="{{ asset('storage/' . $amigo->foto) }}" alt="Foto do Amigo">
+            <h2>{{ $amigo->nome }}</h2>
+        </div>
+        @endforeach
+    </div>
+</div>
+
+<div id="message-layout" style="display: none; z-index:996; position: fixed; right:20px; bottom:10%;">
+    <div class="containerMessage">
+        <div class="headerMessage">
+            <img id="message-friend-photo" src="" alt="Foto do Amigo">
+            <h2 id="message-friend-name"></h2>
+        </div>
+        <div class="message-area" id="message-area">
+            <!-- Mensagens serão carregadas aqui -->
+        </div>
+        <div class="message-input">
+            <textarea id="message-input" placeholder="Escreva sua mensagem..." rows="3"></textarea>
+            <button class="send-button" onclick="enviarMensagem()">Enviar</button>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="current-friend-id" value="">
+
+
 <div class="main">
     <div class="center">
         <div class="my_post">
@@ -103,6 +135,8 @@
             @endforeach
         @endif
 
+        @include('templates.friendsAdd', ['usuarios' => $usuarios])
+
         <!-- Exibir publicações -->
         @if($posts)
             @foreach ($posts as $post)
@@ -110,8 +144,9 @@
                 <div class="friend_post_top">
                     <div class="img_and_name">
                         <img src="{{ asset('storage/' . $post->usuario->foto) }}" alt="{{ $post->usuario->nome }}" width="50" style="border-radius: 50%;">
+                        
                         <div class="friends_name">
-                            <p class="friends_name">{{ $post->usuario->nome }}</p>
+                            <p class="friends_name"><a href="{{ route('perfil.amigo', ['id' => $post->usuario->id]) }}">{{ $post->usuario->nome }}</a></p>
                             <p class="time">{{ $post->created_at->diffForHumans() }}<i class="fa-solid fa-user-group"></i></p>
                         </div>
                     </div>
@@ -251,6 +286,7 @@
 @section('javaScript')
 <script src="{{ url('assets/js/popUpPost.js') }}"></script>
 <script src="{{ url('assets/js/reactedToPosts.js') }}"></script>
+
 <script>
     function openPopUp() {
         document.getElementById('popup').style.display = 'block';
@@ -269,6 +305,7 @@
         }
     }
 </script>
+
 <script>
     function reactToPost(postId, reactionType) {
         fetch(`/post/${postId}/react`, {

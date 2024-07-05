@@ -1,0 +1,118 @@
+.closedFriendsRequest {
+    overflow: auto;
+    resize: vertical;
+    overflow: auto;
+    display: grid;
+    padding: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+    gap: 0.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    margin-top: 1rem;
+}
+
+.cardRequest {
+  background: #f5f5f5;
+    cursor: pointer;
+    margin: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    border-radius: 4px;
+    width: 100%;
+    /* max-width: 400px; */
+    height: auto;
+    /* Altura fixa para todos os cards */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: .4s;
+}
+
+.cardRequest:hover {
+    transform: scale(1);
+    /* Efeito de zoom na imagem ao passar o mouse */
+}
+
+.cardRequest img {
+    width: 15%;
+    height: 15%;
+    margin: 1rem;
+    /* Altura fixa para a imagem */
+    object-fit: cover;
+    object-position: center;
+    border-radius: 100%;
+}
+
+.cardRequest .tags {
+    display: flex;
+    flex-direction: column;
+    margin: 8px 16px;
+}
+
+.cardRequest .tag {
+    font-size: 12px;
+    margin-right: 8px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.cardRequest .content {
+    padding: 1em;
+    padding-top: 0;
+    padding-bottom: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardRequest .title {
+    font-size: 1.1em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.btnAcceptFriend {
+  align-items: center;
+  background-color: #0A66C2;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+}
+
+.btnAcceptFriend:hover,
+.btnAcceptFriend:focus { 
+  background-color: #16437E;
+  color: #ffffff;
+}
+
+.btnAcceptFriend:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, .7);
+}
+
+.btnAcceptFriend:disabled { 
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+}
