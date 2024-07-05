@@ -37,7 +37,7 @@
     
         <div class="right">
             <i style="color: white" class="fa-solid fa-list-ul"></i>
-            <i style="color: white" class="fa-brands fa-facebook-messenger" onclick="showMessageFriends()"></i>
+           <a href="{{ route('mensagem') }}"> <i style="color: white" class="fa-brands fa-facebook-messenger"></i></a>
             <i style="color: white" class="fa-solid fa-bell"></i>
             <a href="#" style="color: red" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <i class="fa-solid fa-sign-out"></i>
@@ -56,74 +56,12 @@
 function showMessageFriends() {
     var messageFriends = document.getElementById('message-friends');
 
-    if (messageFriends.style.display == 'block') {
+    return view('mensagem');
+   /* if (messageFriends.style.display == 'block') {
         messageFriends.style.display = 'none';
     } else {
         messageFriends.style.display = 'block';
-    }
-}
-
-function showMessageLayout(friendId, friendName, friendPhoto) {
-    var messageLayout = document.getElementById('message-layout');
-    var friendPhotoElement = document.getElementById('message-friend-photo');
-    var friendNameElement = document.getElementById('message-friend-name');
-    var messageArea = document.getElementById('message-area');
-    var currentFriendIdInput = document.getElementById('current-friend-id');
-
-    // Definir a foto e o nome do amigo
-    friendPhotoElement.src = friendPhoto;
-    friendNameElement.textContent = friendName;
-
-    // Limpar a área de mensagens
-    messageArea.innerHTML = '';
-
-    // Definir o ID do amigo atual
-    currentFriendIdInput.value = friendId;
-
-    // Carregar mensagens do servidor usando AJAX
-    fetch(`/messages/${friendId}`)
-        .then(response => response.json())
-        .then(messages => {
-            messages.forEach(message => {
-                messageArea.innerHTML += `<p>${message.texto}</p>`;
-            });
-        })
-        .catch(error => console.error('Erro ao carregar mensagens:', error));
-
-    messageLayout.style.display = 'block';
-}
-
-function sendMessage() {
-    var currentFriendId = document.getElementById('current-friend-id').value;
-    var texto = document.getElementById('message-input').value;
-
-    fetch('/enviar-mensagem', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify({
-            destinatario_id: currentFriendId,
-            texto: texto
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data) {
-            // Atualizar a interface com a nova mensagem
-            var messageArea = document.getElementById('message-area');
-            var newMessage = document.createElement('p');
-            newMessage.textContent = data.texto;
-            messageArea.appendChild(newMessage);
-            document.getElementById('message-input').value = '';
-        } else {
-            console.error('Erro ao enviar mensagem:', data);
-        }
-    })
-    .catch(error => {
-        console.error('Erro ao enviar mensagem:', error);
-    });
+    }*/
 }
 
 </script>

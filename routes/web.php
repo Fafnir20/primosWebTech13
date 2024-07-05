@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ReactionController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\FriendsController;
+use App\Http\Controllers\PusherController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'App\Http\Controllers\UsuarioController@create');
@@ -47,3 +48,10 @@ Route::post('/amizade/adicionar', [UsuarioController::class, 'adicionar'])->name
 Route::post('/amizade/aceitar', [UsuarioController::class, 'aceitar'])->name('amizade.aceitar');
 
 Route::get('profile/{id}', [UsuarioController::class, 'show'])->name('perfil.amigo');
+
+Route::get('/mensagem', [PusherController::class, 'index'])->name('mensagem');
+
+Route::post('/broadcast', 'App\Http\Controllers\PusherController@broadcast');
+Route::post('/receive', 'App\Http\Controllers\PusherController@receive');
+
+Route::post('/messages', [MessageController::class, 'store'])->middleware('auth');
